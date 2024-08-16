@@ -70,7 +70,7 @@ void CloudiskServer::handle_user_register(const HttpReq *req, HttpResp *resp, Se
             string encodedPassword(crypt(password.c_str(), salt.c_str()));
             cout << "mi wen:" << encodedPassword << endl;
             //将用户信息存储到数据库MySQL中
-            string mysqlurl("mysql://root:123@localhost");
+            string mysqlurl("mysql://root:""@localhost");
             auto mysqlTask = WFTaskFactory::create_mysql_task(mysqlurl, 1, 
             [resp](WFMySQLTask * mysqltask){
                 //0. 对任务的状态进行检测
@@ -119,7 +119,7 @@ void CloudiskServer::handle_user_signin(const HttpReq *req, HttpResp *resp, Seri
             string encodedPassword(crypt(password.c_str(), salt.c_str()));
             cout << "mi wen:" << encodedPassword << endl;
             //3. 从数据库MySQL中读取用户信息进行登录验证
-            string mysqlurl("mysql://root:123@localhost");
+            string mysqlurl("mysql://root:""@localhost");
             auto mysqlTask = WFTaskFactory::create_mysql_task(mysqlurl, 1, 
             [=](WFMySQLTask * mysqltask){
                 //0. 对任务的状态进行检测
@@ -192,7 +192,7 @@ void CloudiskServer::handle_user_userinfo(const wfrest::HttpReq *req, wfrest::Ht
         cout << "username:" << username << endl;
         cout << "token:" << tokenStr << endl;
 
-        string mysqlurl("mysql://root:123@localhost");
+        string mysqlurl("mysql://root:""@localhost");
         auto mysqlTask = WFTaskFactory::create_mysql_task(mysqlurl, 1, 
         [=](WFMySQLTask * mysqltask){
             //...检测
@@ -216,7 +216,7 @@ void CloudiskServer::handle_user_userinfo(const wfrest::HttpReq *req, wfrest::Ht
                 resp->String("error");
             }
         });
-        string sql("select signup_at from cloudisk.tbl_user where user_name = '");
+        string sql("select created_at from cloudisk.tbl_user where user_name = '");
         sql += username + "'";
         mysqlTask->get_req()->set_query(sql);
         series->push_back(mysqlTask);
@@ -233,7 +233,7 @@ void CloudiskServer::handle_user_filequery(const HttpReq *req, HttpResp *resp, S
         //2. 解析请求： 消息体
         string limitCnt = req->form_kv()["limit"];
 
-        string mysqlurl("mysql://root:123@localhost");
+        string mysqlurl("mysql://root:""@localhost");
         auto mysqlTask = WFTaskFactory::create_mysql_task(mysqlurl, 1, 
         [=](WFMySQLTask * mysqltask){
             //...检测
@@ -299,7 +299,7 @@ void CloudiskServer::handle_user_fileupload(const HttpReq *req, HttpResp *resp, 
                              string filehash = hash.sha1();
                              cout << "filehash:" << filehash << endl;
                              // 6.将文件相关信息写入数据库MySQL中
-                             string mysqlurl("mysql://root:123@localhost");
+                             string mysqlurl("mysql://root:""@localhost");
                              auto mysqlTask = WFTaskFactory::create_mysql_task(mysqlurl, 1, nullptr);
                              string sql("INSERT INTO cloudisk.tbl_user_file(user_name,file_sha1,file_size,file_name)VALUES('");
                              sql += username + "','" + filehash + "', " + std::to_string(content.size()) + ",'" + filename + "')";
@@ -360,6 +360,6 @@ void CloudiskServer::loadFileDownloadModule()
         
         //将下载业务从服务器中分离出去，之后只需要产生一个下载链接就可以了
         //这要求我们还需要去部署一个下载服务器
-        string downloadURL = "http://192.168.72.128:8080/" + filename;
+        string downloadURL = "http://192.168.31.128:8080/" + filename;
         resp->String(downloadURL); });
 }
