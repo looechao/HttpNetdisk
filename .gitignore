@@ -1,0 +1,104 @@
+# 编译输出
+/build/
+/bin/
+/obj/
+/out/
+/Debug/
+/Release/
+/*.exe
+/*.out
+/*.app
+/*.dll
+/*.so
+/*.dylib
+/*.a
+/*.lib
+/*.o
+/*.lo
+/*.la
+
+# 编译器生成的文件
+*.d
+*.gcno
+*.gcda
+*.gcov
+
+# 临时文件
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+*.lock
+
+# CMake 生成的文件
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Makefile 生成的文件
+/Makefile.in
+/Makefile.am
+/autom4te.cache/
+/configure
+/config.log
+/config.status
+/configure.scan
+
+# IDE 相关文件
+.idea/
+/.vscode/
+/*.code-workspace
+*.sublime-workspace
+*.sublime-project
+*.suo
+*.user
+*.ncb
+*.opt
+*.plg
+
+# Qt Creator 文件
+*.pro.user
+*.qmake.stash
+
+# Xcode 文件
+*.xcworkspace
+*.xcproj
+*.pbxproj
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# Visual Studio 文件
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.db
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+*.ipch
+*.pdb
+*.idb
+
+# CLion 文件
+.cmake/
+.idea/
+.vscode/
+*.iml
+
+# MacOS 文件
+.DS_Store
+
+# Windows 文件
+Thumbs.db
+*.bak
+*.bak2
+*.lnk
+
+# Linux 文件
+*~
